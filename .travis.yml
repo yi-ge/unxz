@@ -19,8 +19,5 @@ cache:
 before_install:
   - echo "TRAVIS_GO_VERSION=${TRAVIS_GO_VERSION}"
 
-install:
-  - go mod install
-
 script:
   - go test -v
