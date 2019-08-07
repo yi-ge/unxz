@@ -23,7 +23,7 @@ install:
   - go mod install
 
 script:
-  - make test COVERAGE_DIR=/tmp/coverage
+  - go test -v
 
 after_success:
-  - goveralls -service=travis-ci -coverprofile /tmp/coverage/combined.txt
+  # - goveralls -service=travis-ci -coverprofile /tmp/coverage/combined.txt
