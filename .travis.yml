@@ -1,0 +1,29 @@
+language: go
+sudo: required
+
+matrix:
+  allow_failures:
+    - go: master
+  include:
+    # Supported versions of Go: https://golang.org/dl/
+    - go: '1.11.x'
+    - go: '1.12.x'
+    - go: master
+
+go_import_path: github.com/yi-ge/unxz
+
+cache:
+  directories:
+    - $GOPATH/pkg
+
+before_install:
+  - echo "TRAVIS_GO_VERSION=${TRAVIS_GO_VERSION}"
+
+install:
+  - go mod install
+
+script:
+  - make test COVERAGE_DIR=/tmp/coverage
+
+after_success:
+  - goveralls -service=travis-ci -coverprofile /tmp/coverage/combined.txt
