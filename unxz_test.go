@@ -17,7 +17,7 @@ func currentDir() string {
 }
 
 func testNullContent(t *testing.T) {
-	aFile, err := os.Open(path.Join(currentDir(), "./test/a.txt"))
+	aFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/a.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,7 +28,7 @@ func testNullContent(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	aOutFile, err := os.Open(path.Join(currentDir(), "./test/out/a.txt"))
+	aOutFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/a.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -49,7 +49,7 @@ func testNullContent(t *testing.T) {
 }
 
 func testContentEqual(t *testing.T) {
-	bFile, err := os.Open(path.Join(currentDir(), "./test/b.txt"))
+	bFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/b.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func testContentEqual(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	bOutFile, err := os.Open(path.Join(currentDir(), "./test/out/b.txt"))
+	bOutFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/b.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -79,7 +79,7 @@ func testContentEqual(t *testing.T) {
 }
 
 func testLink(t *testing.T) {
-	cOutFile, err := os.OpenFile(path.Join(currentDir(), "./test/out/c.txt"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	cOutFile, err := os.OpenFile(filepath.FromSlash(path.Join(currentDir(), "./test/out/c.txt")), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -90,7 +90,7 @@ func testLink(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cOutLinkFile, err := os.Open(path.Join(currentDir(), "./test/out/dir/c.txt"))
+	cOutLinkFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/c.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -112,7 +112,7 @@ func testLink(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	cOutFileNew, err := os.Open(path.Join(currentDir(), "./test/out/c.txt"))
+	cOutFileNew, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/c.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -124,7 +124,7 @@ func testLink(t *testing.T) {
 	}
 	t.Log("New c.txt content:", string(cOutFileContentNew))
 
-	cOutLinkFileNew, err := os.Open(path.Join(currentDir(), "./test/out/dir/c.txt"))
+	cOutLinkFileNew, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/c.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -141,16 +141,16 @@ func testLink(t *testing.T) {
 }
 
 func testSymlink(t *testing.T) {
-	targetURL, err := filepath.EvalSymlinks(path.Join(currentDir(), "./test/out/d.txt"))
+	targetURL, err := filepath.EvalSymlinks(filepath.FromSlash(path.Join(currentDir(), "./test/out/d.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if targetURL != path.Join(currentDir(), "./test/out/dir/d.txt") {
+	if targetURL != filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/d.txt")) {
 		t.Fatal("Unxz file Symlink error.")
 	}
 
-	dOutSymlinkFile, err := os.Open(path.Join(currentDir(), "./test/out/d.txt"))
+	dOutSymlinkFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/d.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -161,7 +161,7 @@ func testSymlink(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	dOutFile, err := os.Open(path.Join(currentDir(), "./test/out/dir/d.txt"))
+	dOutFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/d.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -178,7 +178,7 @@ func testSymlink(t *testing.T) {
 }
 
 func testLintInDir(t *testing.T) {
-	eOutFile, err := os.OpenFile(path.Join(currentDir(), "./test/out/dir/dir/e.txt"), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	eOutFile, err := os.OpenFile(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/dir/e.txt")), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -189,7 +189,7 @@ func testLintInDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	eOutLinkFile, err := os.Open(path.Join(currentDir(), "./test/out/dir/e.txt"))
+	eOutLinkFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/e.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -211,7 +211,7 @@ func testLintInDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	eOutFileNew, err := os.Open(path.Join(currentDir(), "./test/out/dir/dir/e.txt"))
+	eOutFileNew, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/dir/e.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -223,7 +223,7 @@ func testLintInDir(t *testing.T) {
 	}
 	t.Log("New dir/dir/e.txt content:", string(eOutFileContentNew))
 
-	eOutLinkFileNew, err := os.Open(path.Join(currentDir(), "./test/out/dir/e.txt"))
+	eOutLinkFileNew, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/e.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -240,17 +240,17 @@ func testLintInDir(t *testing.T) {
 }
 
 func testSymlinkInDir(t *testing.T) {
-	inDirTargetURL, err := filepath.EvalSymlinks(path.Join(currentDir(), "./test/out/dir/dir/f.txt"))
+	inDirTargetURL, err := filepath.EvalSymlinks(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/dir/f.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
 	t.Log("F outSymlinkFile link:", inDirTargetURL)
 
-	if inDirTargetURL != path.Join(currentDir(), "./test/out/dir/f.txt") {
+	if inDirTargetURL != filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/f.txt")) {
 		t.Fatal("Unxz file Symlink error.")
 	}
 
-	fOutSymlinkFile, err := os.Open(path.Join(currentDir(), "./test/out/dir/dir/f.txt"))
+	fOutSymlinkFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/dir/f.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -261,7 +261,7 @@ func testSymlinkInDir(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	fOutFile, err := os.Open(path.Join(currentDir(), "./test/out/dir/f.txt"))
+	fOutFile, err := os.Open(filepath.FromSlash(path.Join(currentDir(), "./test/out/dir/f.txt")))
 	if err != nil {
 		t.Fatal(err)
 	}
